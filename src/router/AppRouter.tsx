@@ -1,6 +1,6 @@
 import {Route, Routes, Navigate} from "react-router-dom";
 import { GeneralSummaryPage } from "../tracker/pages/GeneralSummaryPage";
-import { UserRegisterPage } from "../tracker/pages/userRegisterPage";
+import { UserRegisterPage } from "../tracker/pages/UserRegisterPage";
 
 export const AppRouter = () => {
     return (

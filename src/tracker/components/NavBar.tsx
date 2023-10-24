@@ -1,7 +1,7 @@
 import { TabMenu } from "primereact/tabmenu";
 import { MenuItem } from "primereact/menuitem";
 import { NavLink } from "react-router-dom";
-import Menu from "./TieredMenu";
+import MenuSettings from "./TieredMenu";
 
 export const NavBar = () => {
   const items: MenuItem[] = [
@@ -47,7 +47,7 @@ export const NavBar = () => {
       id: "3",
       label: "Courses",
       icon: "pi pi-fw pi-pencil",
-      url: '/#',
+      url: "/#",
       template: (item) => (
         <NavLink
           to={item.url!}
@@ -66,18 +66,13 @@ export const NavBar = () => {
     {
       id: "4",
       icon: "pi pi-fw pi-cog",
-      template: () => (
-        <Menu></Menu>
-      ),
+      template: () => <MenuSettings></MenuSettings>,
     },
   ];
 
   return (
     <div className="mb-8">
-      <TabMenu
-        model={items}
-        activeIndex={9}
-      />
+      <TabMenu model={items} activeIndex={9} />
     </div>
   );
 };
