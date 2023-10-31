@@ -27,7 +27,7 @@ export const NavBar = () => {
     {
       id: "2",
       label: "Students",
-      url: "/userRegister",
+      url: "/usersPage",
       template: (item) => (
         <NavLink
           to={item.url!}
