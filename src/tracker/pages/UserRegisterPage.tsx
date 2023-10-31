@@ -21,7 +21,7 @@ export const UserRegisterPage = () => {
   const [value, setValue] = useState("");
   const [users, setUser] = useState(INITIAL_STATE);
   const [selectedRole, setSelectedRole] = useState<DropdownData | null>(null);
-  const countries: DropdownData[] = [
+  const roles: DropdownData[] = [
     { name: "Frontend Developer", code: "WB" },
     { name: "Scrum Master", code: "SM" },
     { name: "Bussiness Analyst", code: "BA" },
@@ -111,7 +111,7 @@ export const UserRegisterPage = () => {
               setSelectedRole(e.target.value);
               console.log("aaaaaa", e);
             }}
-            options={countries}
+            options={roles}
             optionValue="code"
             optionLabel="name"
             name="role"

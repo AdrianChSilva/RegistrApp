@@ -22,10 +22,14 @@ export default function MenuSettings() {
       ),
     },
     {
-      template: () => (
+      url: "/courseRegister",
+      label: "Add Course",
+      template: (item) => (
         <div className="p-menuitem-link">
-          <span className="p-menuitem-icon pi pi-fw pi-file-edit"></span>
-          <span className="p-menuitem-text">Add Course</span>
+          <NavLink to={item.url!}>
+            <span className="p-menuitem-icon pi pi-fw pi-file-edit"></span>
+            <span className="p-menuitem-text">{item.label}</span>
+          </NavLink>
         </div>
       ),
     },
@@ -45,9 +49,6 @@ export default function MenuSettings() {
         label="Settings"
         icon="pi pi-cog"
         onClick={(e) => {
-          console.log(menu.current?.getElement());
-          console.log(e);
-
           menu.current?.toggle(e);
         }}
       />
