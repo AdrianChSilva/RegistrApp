@@ -47,7 +47,7 @@ export const NavBar = () => {
       id: "3",
       label: "Courses",
       icon: "pi pi-fw pi-pencil",
-      url: "/#",
+      url: "/coursesPage",
       template: (item) => (
         <NavLink
           to={item.url!}

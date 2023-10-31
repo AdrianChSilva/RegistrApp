@@ -2,6 +2,7 @@ import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
+import { InputNumber } from "primereact/inputnumber";
 
 interface DropdownData {
   name: string;
@@ -12,15 +13,17 @@ interface Course {
   name: string;
   instructor: string;
   category: string;
+  duration: string;
   timestamp: number;
 }
-const INITIAL_STATE: Course[] = [
-];
+const INITIAL_STATE: Course[] = [];
 
 export const CourseRegisterPage = () => {
   const [value, setValue] = useState("");
   const [courses, setCourse] = useState(INITIAL_STATE);
-  const [selectedCategory, setSelectedCategory] = useState<DropdownData | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<DropdownData | null>(
+    null
+  );
   const categories: DropdownData[] = [
     { name: "Management", code: "MG" },
     { name: "Software development", code: "SD" },
@@ -38,20 +41,25 @@ export const CourseRegisterPage = () => {
     // Manera 1: usar 'as HTMLInputElement' para castear el elemento
     // const inputCourseName= elements.namedItem("name") as HTMLInputElement;
 
-    const inputCourseName= elements.namedItem("courseName");
+    const inputCourseName = elements.namedItem("courseName");
     const inputInstructor = elements.namedItem("instructor");
     const inputCategory = elements.namedItem("category");
+    const inputDuration = elements.namedItem("duration");
 
     // Manera 2: asegurarse de que se trata de un elemento HTMLInputElement
-    const isInputCourseName= inputCourseName instanceof HTMLInputElement; // Javascript Puro
+    const isInputCourseName = inputCourseName instanceof HTMLInputElement; // Javascript Puro
     const isInputInstructor = inputInstructor instanceof HTMLInputElement; // Javascript Puro
     const isInputCategory = inputCategory instanceof HTMLSelectElement; // Javascript Puro
+    const isInputDuration = inputDuration instanceof HTMLInputElement; // Javascript Puro    
+    
     if (
-      !isInputCourseName||
+      !isInputCourseName ||
       !isInputInstructor ||
       !isInputCategory ||
-      isInputCourseName== null ||
+      !isInputDuration ||
+      isInputCourseName == null ||
       isInputInstructor == null ||
+      isInputDuration == null ||
       isInputCategory == null
     )
       return;
@@ -62,6 +70,7 @@ export const CourseRegisterPage = () => {
       name: inputCourseName.value,
       instructor: inputInstructor.value,
       category: inputCategory.value,
+      duration: inputDuration.value,
       timestamp: Date.now(),
     };
 
@@ -72,7 +81,9 @@ export const CourseRegisterPage = () => {
 
   const handleRemoveCourse = (id: Course["id"]) => () => {
     setCourse((prevItemsCourses) => {
-      return prevItemsCourses.filter((currentCourse) => currentCourse.id !== id);
+      return prevItemsCourses.filter(
+        (currentCourse) => currentCourse.id !== id
+      );
     });
   };
 
@@ -101,6 +112,18 @@ export const CourseRegisterPage = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mb-4">
+          <label htmlFor="integeronly" className="font-bold block mb-2">
+            Duration
+          </label>
+          <InputNumber
+            className="max-w-xs"
+            id="duration"
+            name="duration"
+            aria-describedby="duration-help"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
           <label htmlFor="category">Category</label>
           <Dropdown
             value={selectedCategory}
@@ -124,19 +147,27 @@ export const CourseRegisterPage = () => {
       <div className="mt-8">
         <h2>Courses</h2>
         <ul>
-          {
-            courses.length === 0 ? <p>
+          {courses.length === 0 ? (
+            <p>
               <strong>No courses yet</strong>
-            </p>:
+            </p>
+          ) : (
             courses.map((course) => (
               <li key={course.id} className="flex items-center">
-                {course.name} {course.instructor} {course.category}
+                {course.name} {course.instructor} {course.category} {course.duration}
                 <div className="ml-4">
-                <Button icon="pi pi-times" rounded text severity="danger" aria-label="Cancel"  onClick={handleRemoveCourse(course.id)} />
+                  <Button
+                    icon="pi pi-times"
+                    rounded
+                    text
+                    severity="danger"
+                    aria-label="Cancel"
+                    onClick={handleRemoveCourse(course.id)}
+                  />
                 </div>
               </li>
             ))
-          }
+          )}
         </ul>
       </div>
     </>
